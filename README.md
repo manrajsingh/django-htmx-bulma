@@ -19,21 +19,22 @@ Bulma is used as css framework of choice.
 
 The idea is to build a single page application leveraging HTMX to handle dynamic content/view.
 
-## Prepare
+## Prepare environment
 
 ### Create an `.env` file
+Create an `.env` file in the root directory with the following content. This file is referenced from `docker-compose.yml` this file basically contains environment specific variables.
 
 ```ini
+#Django 
+DEBUG=0
+ALLOWED_HOSTS="localhost 127.0.0.1"
+SECRET_KEY="your-django-secret-here-here"
+
 # MariaDB
 MARIADB_DATABASE=your_db_name_here
 MARIADB_USER=your_db_username_here
 MARIADB_PASSWORD=you_db_password_here
 MARIADB_ROOT_PASSWORD=your_db_root_password_here
-
-#Django 
-DEBUG=0
-ALLOWED_HOSTS="localhost 127.0.0.1 *"
-SECRET_KEY="your-django-secret-here-here"
 
 # DB_HOST in docker-compose.yml
 DB_HOST=db
@@ -44,7 +45,7 @@ DB_PORT=3306
 ```
 
 
-### Run this application
+### Run application
 ```bash
 $ docker compose up
 ```
@@ -71,6 +72,58 @@ press `CTRL+D` to exit out of container shell.
 
 At this point you should be able to access https://localhost:8000/admin/ and login with the superuser you created.
 
+---
+
+
+
+## Using PostgreSQL?
+
+1. Change `DATABASE` in `settings.py`
+    ```python
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME'),,
+            'USER':  os.environ.get('DB_USER'),,
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+            'CONN_MAX_AGE': 600,
+        }
+    }
+
+    ```
+2. Change the service `db` in `docker-compose.yml`
+    ```yml
+    db:
+        image: postgres
+        container_name: django-boilerplate--db
+        volumes:
+        - db:/var/lib/postgresql/data
+        env_file:
+        - .env
+    ```
+    > TODO: Run healthcheck to let database fully initialize before trying to connect from Django.
+
+3. Change database related variables in `.env` file
+    ```ini
+    # PostgreSQL Database
+    POSTGRES_HOST=db-host
+    POSTGRES_NAME=database-name
+    POSTGRES_USER=db-user
+    POSTGRES_PASSWORD=db-password
+
+    # DB_HOST in docker-compose.yml
+    DB_HOST=db
+    DB_NAME="$POSTGRES_NAME"
+    DB_USER="$POSTGRES_USER"
+    DB_PASSWORD="$POSTGRES_PASSWORD"
+    DB_PORT=5432
+    ```
+4. Change `mysqlclient` with `psycopg2-binary` in requirements.txt and rebuild the docker image
+    ```bash
+    $ docker compose up --build
+    ```
 ---
 
 ## Modifications made to settings.py
@@ -118,4 +171,3 @@ DATABASES = {
     }
 }
 ```
-
