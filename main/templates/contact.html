@@ -1,0 +1,21 @@
+{% extends base_template %}
+{% block content %}
+<section class="hero is-halfheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-8 is-variable ">
+                <div class="column is-two-thirds has-text-left">
+                    <h1 class="title is-1">Contact Us</h1>
+                    <p class="is-size-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eligendi soluta
+                        voluptate facere molestiae consequatur.</p>
+                </div>
+                <div class="column is-one-third has-text-left" id="contact-form">
+                    
+                        {% include 'partials/contact-form.html' %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

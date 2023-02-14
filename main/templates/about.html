@@ -1,0 +1,28 @@
+{% extends base_template %}
+{% block content %}
+<section class="section">
+  <div class="container has-text-centered">
+      <h2 class="title">About</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iste, earum, rem error a molestiae magnam placeat similique vel blanditiis nemo ducimus distinctio nostrum aliquam fuga et aperiam nulla eaque? Lorem
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam ex modi ea aspernatur officia facilis, omnis rem tenetur error placeat commodi hic cumque quos, itaque eum vitae pariatur. Pariatur, necessitatibus!
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit distinctio optio dicta necessitatibus similique, reprehenderit minus quas officia temporibus! Quisquam eveniet iusto quidem inventore ad soluta culpa a saepe reiciendis. </p>
+      <div class="modal" id="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head mb-0">
+            <p class="modal-card-title">Modal title</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <!-- Content ... --> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ex ut enim natus commodi quia, nam consequatur veritatis sint optio quo sequi porro, itaque nisi vero ipsa, tempora atque placeat?
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
+      </div>
+      <button class="button is-info modal-button js-modal-trigger mt-4" data-target="modal" aria-haspopup="true">Launch example modal</button>
+  </div>
+</section>
+{% endblock %}

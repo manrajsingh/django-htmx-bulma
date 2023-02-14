@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <title>Django Boilerplate</title>
+
+    {% load compress %}
+    {% compress css %}
+    <link rel="stylesheet" href="/static/css/bulma.min.css"/>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+    {% endcompress %}
+    
+    <link rel="manifest" href="/static/manifest.json" />
+
+  </head>
+  <body>
+    <header class="header">
+       {% include 'partials/nav.html' %}
+    </header>
+    <div id="waiting-lounge" style="display: none;"></div>
+    {% include 'partials/message.html' %}
+    <section id="content">
+    {% block content %}
+    {% endblock %}
+    </section>
+    <div id="htmx-error" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <iframe id="error-message"></iframe>
+        </div>
+      </div>    
+      <button class="modal-close is-large" onclick="" aria-label="close"></button>
+    </div>
+    <footer>
+      <div class="level is-mobile has-background-dark has-text-grey-lighter mb-0 p-2 is-fullhd">
+        <div class="level-item is-size-7">
+          &copy; {% now "Y" %} Django Boilerplate
+        </div>
+        <div class="level-item has-text-right is-size-7">
+          Using HTMX
+        </div>
+      </div>
+    </footer>
+    {% compress js %}
+    <script src="/static/js/htmx.min.js"></script>
+    <script src="/static/js/global.js"></script>
+    {% endcompress %}
+  </body>
+</html>

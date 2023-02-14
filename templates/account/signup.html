@@ -1,0 +1,30 @@
+{% extends base_template %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<section class="hero is-halfheight">
+  <div class="hero-body">
+      <div class="container has-text-centered">
+          <div class="columns is-8 is-variable ">
+              <div class="column is-two-thirds has-text-left">
+                  <h1 class="title is-1">{% trans "Sign Up" %}</h1>
+                  <p class="is-size-4">{% blocktrans %}Already have an account? Then please <a hx-get="{{ login_url }}" hx-target="#content" hx-push-url="true">sign in</a>.{% endblocktrans %}</p>
+                  
+              </div>
+              <div class="column is-one-third has-text-left">
+                  <form hx-post="{% url 'account_signup' %}" hx-target="#content">
+                      {% csrf_token %}
+                      {{ form.as_div }}
+                      <button class="button is-info" type="submit">{% trans "Sign Up" %}</button>
+                  </form>
+              
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+ 
+{% endblock %}

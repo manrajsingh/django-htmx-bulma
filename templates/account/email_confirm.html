@@ -1,0 +1,30 @@
+{% extends base_template %}
+{% load i18n %}
+{% load account %}
+{% block content %}
+<section class="hero is-halfheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-8 is-variable ">
+                <div class="column is-two-thirds has-text-left">
+                    <h1 class="title is-1">{% trans "Confirm E-mail Address" %}</h1>
+                    {% if confirmation %}
+                        {% user_display confirmation.email_address.user as user_display %}
+                        <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
+                        <div class="field mt-4">
+                            <form hx-post="{% url 'account_confirm_email' confirmation.key %}" hx-target="#content">
+                                {% csrf_token %}
+                                <button class="button is-info" type="submit">{% trans 'Confirm' %}</button>
+                            </form>
+                        </div>
+
+                    {% else %}
+                        {% url 'account_email' as email_url %}
+                        <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a hx-get="{{ email_url }}" hx-target="#content">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

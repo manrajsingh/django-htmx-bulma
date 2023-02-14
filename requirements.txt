@@ -1,0 +1,7 @@
+django
+django-compressor
+django-htmx
+django-allauth
+mysqlclient
+gunicorn
+whitenoise

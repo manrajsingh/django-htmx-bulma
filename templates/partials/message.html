@@ -1,0 +1,10 @@
+{% if messages %}
+    <div class="notification-container">
+    {% for message in messages %}
+        <div class="notification box has-shadow {% if message.tags %}{{ message.tags }}{% endif %}">
+            <button onclick="this.parentNode.remove()" class="delete"></button>
+            {{message}}
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}

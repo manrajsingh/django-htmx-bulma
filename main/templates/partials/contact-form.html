@@ -1,0 +1,27 @@
+<form hx-post="/contact" hx-target="#contact-form" hx-swap="innerHTML">
+    {% csrf_token %}
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            <input class="input is-medium {% if form.name.errors %}is-danger{% endif %}" type="text" name="name" value="{{form.name.value}}">
+            <p class="help is-danger">{{ form.name.errors.as_text }}</p>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+            <input class="input is-medium {% if form.name.errors %}is-danger{% endif %}" type="text" name="email" value="{{form.email.value}}">   
+            <p class="help is-danger">{{ form.email.errors.as_text }}</p>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Message</label>
+        <div class="control">
+            <textarea class="textarea is-medium {% if form.name.errors %}is-danger{% endif %}" name="message">{{form.message.value}}</textarea>
+            <p class="help is-danger">{{ form.message.errors.as_text }}</p>
+        </div>
+    </div>
+    <div class="control">
+        <button type="submit" class="button is-link is-fullwidth has-text-weight-medium is-medium">Send Message</button>
+    </div>
+</form>

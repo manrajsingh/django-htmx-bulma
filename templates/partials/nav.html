@@ -1,0 +1,62 @@
+<nav id="nav" class="navbar is-dark is-fixed-top">
+<div class="container">
+    <div class="navbar-brand">
+    <div class="navbar-burger ml-0" data-target="navburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <a class="navbar-item" href="/">
+        <img src="/static/images/logo.png" alt="Company Logo">
+    </a>
+    <span class="is-size-5 has-text-white" style="padding: 12px 0px 0px 0px">Django Boilerplate</span>
+    </div>
+    <div id="navburger" class="navbar-menu">    
+    <div class="navbar-end">
+        <a class="navbar-item is-active" hx-get="/" hx-trigger="click" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#waiting-lounge">Home</a>
+        <a class="navbar-item" hx-get="/about" hx-trigger="click" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#waiting-lounge"> About</a>
+        <a class="navbar-item" hx-get="/contact" hx-trigger="click" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#waiting-lounge">Contact</a>
+        {% if user.is_authenticated %}
+        <a class="navbar-item" hx-get="/accounts/profile/" hx-trigger="click" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#waiting-lounge">Profile</a>
+            {% if user.is_superuser %}
+                <a class="navbar-item" href="/admin/" target="_blank">Admin</a>
+            {% endif %}
+        <a class="navbar-item" hx-get="/accounts/logout/" hx-trigger="click" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#waiting-lounge">Logout</a>
+        {% else %}
+        <a class="navbar-item" hx-get="/accounts/login/" hx-trigger="click" hx-target="#content" hx-swap="innerHTML" hx-push-url="true" hx-indicator="#waiting-lounge">Login</a>
+        {% endif %}
+    </div>
+    </div>
+</div>  
+</nav>
+<script>
+    var $navbarBurgers = Array.prototype.slice.call(
+    document.querySelectorAll(".navbar-burger"),0);
+    listner = function($el){
+        var target = $el.dataset.target;
+        var $target = document.getElementById(target);
+        $el.classList.toggle("is-active");
+        $target.classList.toggle("is-active");
+    }
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach(function ($el) {
+        //$el.removeEventListener("click", ()=>listner($el));
+        $el.addEventListener("click", ()=>listner($el));
+      });
+    }
+
+    function hide_hamburger_menu(){
+        htmx.removeClass(htmx.find('.navbar-burger'), 'is-active');
+        htmx.removeClass(htmx.find('#navburger'), 'is-active');
+    }
+    
+    function update_primary_nav(){
+        path = window.location.pathname;
+        if(path.startsWith("/accounts/password/")) path="/accounts/login/";
+        if(path.startsWith("/accounts/signup/")) path="/accounts/login/";
+        if(path.startsWith("/accounts/confirm")) path="/accounts/login/";
+        htmx.takeClass(htmx.find("[hx-get='"+path+"']"), "is-active"); 
+        hide_hamburger_menu();
+    }
+    
+</script>

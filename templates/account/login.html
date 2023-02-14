@@ -1,0 +1,47 @@
+{% extends base_template %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<section class="hero is-halfheight">
+  <div class="hero-body">
+      <div class="container has-text-centered">
+          <div class="columns is-8 is-variable ">
+              <div class="column is-two-thirds has-text-left">
+                  <h1 class="title is-1">{% trans "Sign In" %}</h1>
+                  {% get_providers as socialaccount_providers %}
+                  {% if socialaccount_providers %}
+                  <p class="is-size-4">{% blocktrans with site.name as site_name %}Please sign in with one
+                    of your existing third party accounts. Or, <a hx-get="{{ signup_url }}" hx-target="#content" hx-push-url="true">sign up</a>
+                    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+                  <div class="socialaccount_ballot">
+                    <ul class="socialaccount_providers is-size-5">
+                      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                    </ul>
+                  </div>
+                  {% include "socialaccount/snippets/login_extra.html" %}
+                {% else %}
+                  <p class="is-size-4">{% blocktrans %}If you have not created an account yet, then please
+                  <a hx-target="#content" hx-get="{{ signup_url }}" hx-push-url="true">sign up</a> first.{% endblocktrans %}</p>
+                {% endif %}
+              </div>
+              <div class="column is-one-third has-text-left">
+                  {% if user.is_authenticated %}
+                  {% include "account/snippets/already_logged_in.html" %}
+                  {% endif %}
+                  <form hx-post="{% url 'account_login' %}" class="password_reset" hx-target="#content">
+                      {% csrf_token %}
+                      {{ form.as_div }}
+                      <button class="button is-info" type="submit">{% trans "Sign In" %}</button>
+                      <a class="button is-light has-shadow" hx-push-url="true" hx-target="#content" hx-get="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                  </form>
+              
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+ 
+{% endblock %}

@@ -1,0 +1,11 @@
+<input type="{{ widget.type }}" 
+    name="{{ widget.name }}"
+    {% if widget.value != None %} 
+        value="{{ widget.value|stringformat:'s' }}"
+    {% endif %} 
+    {% if widget.type == "text" %} class="input" {% endif %}
+    {% if widget.type == "email" %} class="input" {% endif %}
+    {% if widget.type == "password" %} class="input" {% endif %}
+    {% if widget.type == "checkbox" %} class="checkbox" {% endif %}
+
+    {% include "django/forms/widgets/attrs.html" %}>

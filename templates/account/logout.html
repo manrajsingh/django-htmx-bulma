@@ -1,0 +1,25 @@
+{% extends base_template %}
+{% load i18n %}
+{% block content %}
+<section class="hero is-halfheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-8 is-variable ">
+                <div class="column is-two-thirds has-text-left">
+                    <h1 class="title is-1">{% trans "Sign Out" %}</h1>
+                    <p class="is-size-4">{% trans 'Are you sure you want to sign out?' %}</p>
+                    <div class="field">
+                        <form hx-post="{% url 'account_logout' %}" hx-target="#content" hx-push-url="true">
+                          {% csrf_token %}
+                          {% if redirect_field_value %}
+                          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                          {% endif %}
+                          <button class="button is-danger mt-4" type="submit">{% trans 'Sign Out' %}</button>
+                        </form>
+                      </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

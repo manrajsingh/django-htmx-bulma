@@ -1,0 +1,22 @@
+{
+    "name": "Django Boilerplate",
+    "short_name": "Dj",
+    "description": "Django Boilerplate with HTMX",
+    "categories": [
+        "relegious"
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "fullscreen",
+    "lang": "en-US",
+    "dir": "auto",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/static/images/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

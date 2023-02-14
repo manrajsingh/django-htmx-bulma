@@ -1,0 +1,4 @@
+header              { margin-bottom: 3.25rem;}
+footer              { position: fixed; bottom:0; width: 100%;}
+.errorlist > li     { color: red; }
+.notification-container       { position: absolute; z-index: 1; width: 400px; right:0 }

@@ -1,0 +1,4 @@
+ 
+{% for name, value in attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}
+{% if field.field.widget.input_type in "text password email tel url number" %} class="label" {% endif %}
+{% if field.field.widget.input_type in "checkbox" %} class="checkbox" {% endif %}
