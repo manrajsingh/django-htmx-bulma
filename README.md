@@ -1,6 +1,6 @@
-# Boilerplate for Django MariaDB HTMX Bulma
+# Boilerplate for Django HTMX Bulma
 
-My boilerplate for Django web application with MariaDB backend and HTMX and Bulma CSS providing the frontend / UI.
+My boilerplate for Django web application with HTMX and Bulma CSS providing the frontend / UI.
 
 I wanted to keep all project dependencies within python as much as possible; I try to avoid frontend js compilation dependency etc that warrants nodejs for frontend frameworks like angular, react and vue etc. and bundlers like webpack. 
 
