@@ -1,22 +1,60 @@
-# Django Boilerplate
+# Boilerplate for Django MariaDB HTMX Bulma
 
-My go-to boilerplate for web projects using django framework. 
+My boilerplate for Django web application with MariaDB backend and HTMX and Bulma CSS providing the frontend / UI.
 
-Since this is a python project I wanted to keep all project dependencies within python; That means that there are no nodejs dependencies. So frontend frameworks like angular, react and vue etc. and bundlers like webpack are not part of this boilerplate. Instead, the following python libraries will attempt to provide the similar functionality.
+I wanted to keep all project dependencies within python as much as possible; I try to avoid frontend js compilation dependency etc that warrants nodejs for frontend frameworks like angular, react and vue etc. and bundlers like webpack. 
+
+Using the following python libraries:
 
 - django-compressor
     - For concatenating and minifying css and javascript files.
 
 - django-htmx
-    - For accessing modern browser features directly from HTML rather than relying heavily on javascript. 
+    - For accessing modern browser features directly from HTML rather than relying heavily on javascript. Also an attempt to build a single page application. 
+
+- django-allauth
+    - for addressing authentication, registration, account management as well as 3rd party account authentication (Oauth).
 
 Bulma is used as css framework of choice.
 
-This application will load the webpage once and then basically manipulate dom/view with ajax to navigate through different pages with content. 
+The idea is to build a single page application leveraging HTMX to handle dynamic content/view.
+
+## Prepare
+
+### Create an `.env` file
+
+```ini
+# MariaDB
+MARIADB_DATABASE=your_db_name_here
+MARIADB_USER=your_db_username_here
+MARIADB_PASSWORD=you_db_password_here
+MARIADB_ROOT_PASSWORD=your_db_root_password_here
+
+#Django 
+DEBUG=0
+ALLOWED_HOSTS="localhost 127.0.0.1 *"
+SECRET_KEY="your-django-secret-here-here"
+
+# DB_HOST in docker-compose.yml
+DB_HOST=db
+DB_NAME="$MARIADB_DATABASE"
+DB_USER="$MARIADB_USER"
+DB_PASSWORD="$MARIADB_PASSWORD"
+DB_PORT=3306
+```
 
 
+### Run this application
+```bash
+$: docker compose up
+```
+---
 
-## Modifications in settings.py
+
+## Modifications made to settings.py
+This is just a summary of what has been done to settings.py from scratch.
+
+
 Import os in settings.py
 ```
 import os
