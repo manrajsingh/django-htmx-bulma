@@ -46,10 +46,32 @@ DB_PORT=3306
 
 ### Run this application
 ```bash
-$: docker compose up
+$ docker compose up
 ```
----
 
+assuming both database and django containers are running .. then in a terminal run the following to initialize the database.
+
+```bash
+$ docker container exec -it django-boilerplate--web bash
+```
+
+and then from inside the container shell
+
+```bash
+> ./manage.py migrate
+```
+
+and then create a superuser for django
+
+```bash
+> ./manage.py createsuperuser
+```
+
+press `CTRL+D` to exit out of container shell.
+
+At this point you should be able to access https://localhost:8000/admin/ and login with the superuser you created.
+
+---
 
 ## Modifications made to settings.py
 This is just a summary of what has been done to settings.py from scratch.
