@@ -99,14 +99,14 @@ At this point you should be able to access https://localhost:8000/admin/ and log
         image: postgres
         container_name: django-boilerplate--db
         volumes:
-          - db:/var/lib/postgresql/data
+            - db:/var/lib/postgresql/data
         env_file:
-          - .env
+            - .env
         healthcheck :
-          test: [ "CMD", "pg_isready", "-q", "-d", "$POSTGRES_DB", "-U", "$POSTGRES_USER" ]
-          interval : 5s
-          timeout : 5s
-          retries : 5
+            test: [ "CMD", "pg_isready", "-q", "-d", "$POSTGRES_DB", "-U", "$POSTGRES_USER" ]
+            interval : 5s
+            timeout : 5s
+            retries : 5
     ```
 
 3. Change database related variables in `.env` file
