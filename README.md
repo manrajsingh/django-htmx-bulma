@@ -83,8 +83,8 @@ At this point you should be able to access https://localhost:8000/admin/ and log
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME'),,
-            'USER':  os.environ.get('DB_USER'),,
+            'NAME': os.environ.get('DB_NAME'),
+            'USER':  os.environ.get('DB_USER'),
             'PASSWORD': os.environ.get('DB_PASSWORD'),
             'HOST': os.environ.get('DB_HOST'),
             'PORT': os.environ.get('DB_PORT'),
@@ -99,17 +99,21 @@ At this point you should be able to access https://localhost:8000/admin/ and log
         image: postgres
         container_name: django-boilerplate--db
         volumes:
-        - db:/var/lib/postgresql/data
+          - db:/var/lib/postgresql/data
         env_file:
-        - .env
+          - .env
+        healthcheck :
+          test: [ "CMD", "pg_isready", "-q", "-d", "$POSTGRES_DB", "-U", "$POSTGRES_USER" ]
+          interval : 5s
+          timeout : 5s
+          retries : 5
     ```
-    > TODO: Run healthcheck to let database fully initialize before trying to connect from Django.
 
 3. Change database related variables in `.env` file
     ```ini
     # PostgreSQL Database
     POSTGRES_HOST=db-host
-    POSTGRES_NAME=database-name
+    POSTGRES_DB=database-name
     POSTGRES_USER=db-user
     POSTGRES_PASSWORD=db-password
 
