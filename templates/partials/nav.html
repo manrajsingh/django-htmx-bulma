@@ -52,10 +52,19 @@
     
     function update_primary_nav(){
         path = window.location.pathname;
-        if(path.startsWith("/accounts/password/")) path="/accounts/login/";
-        if(path.startsWith("/accounts/signup/")) path="/accounts/login/";
-        if(path.startsWith("/accounts/confirm")) path="/accounts/login/";
-        htmx.takeClass(htmx.find("[hx-get='"+path+"']"), "is-active"); 
+        valid_paths = [];
+        document.querySelectorAll("#navburger > .navbar-end > a").forEach(function(elm){
+            valid_paths.push(elm.getAttribute("hx-get"));
+        }); 
+        if(valid_paths.indexOf(path) >=0){
+            htmx.takeClass(htmx.find("[hx-get='"+path+"']"), "is-active"); 
+        }
+        else{
+            currently_active = htmx.find("#navburger > .navbar-end > a.is-active");
+            if(currently_active){
+                htmx.removeClass(htmx.find("#navburger > .navbar-end > a.is-active"), "is-active"); 
+            }
+        }
         hide_hamburger_menu();
     }
     
